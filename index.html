@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Alien Swap ~ DEX</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,200;1,300;1,400;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- js -->
+    <script src="/js/components.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+
+<!--     <meta property="og:image" content=""/>
+ -->  <meta property="og:title" content="Alien Swap"/>
+
+      <meta property="og:site_name" content="Alien Swap"/>
+      <meta property="og:type" content="website"/>
+      <meta property="og:description" content="New DEX that leverages the power of low mcap altcoins, with many UI improvements to trade faster and with less errors. "/>
+
+
+
+
+      <meta name="keywords" content="crypto, exchange, dex, bsc, smartchain, shitcoin, altcoin, bitcoin"/>
+      <meta name="description" content="New DEX that leverages the power of low mcap altcoins, with many UI improvements to trade faster and with less errors. "/>
+      <meta name="subject" content="Alien Swap DEX">
+      <meta name="copyright"content="Alien Swap">
+      <meta name="language" content="EN">
+
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196385952-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-196385952-1');
+    </script>
+
+</head>
+
+<body>
+
+    <div class="bg-white">
+        <header>
+            <div class="relative bg-white pin-x-0" x-data="Components.popover({ open: false, focus: true })" x-init="init()"
+                @keydown.escape="onEscape" @close-popover-group.window="onClosePopoverGroup">
+                <div
+                    class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
+
+                    <div class="flex justify-start lg:w-0 lg:flex-1">
+                        <a href="#">
+                            <span class="sr-only">Alien Swap</span>
+                            <img class="h-8 w-auto sm:h-10" src="img/logo.svg" alt="Alien Swap">
+                        </a>
+                    </div>
+
+                    <div class="-mr-2 -my-2 md:hidden">
+                        <button type="button"
+                            class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-pink-300"
+                            @click="toggle" @mousedown="if (open) $event.preventDefault()" aria-expanded="false"
+                            :aria-expanded="open.toString()">
+                            <span class="sr-only">Open menu</span>
+                            <svg class="h-6 w-6" x-description="Heroicon name: outline/menu"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <nav class="hidden md:flex space-x-10">
+
+                        <a href="#presale" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                            Presale (soon)
+                        </a>
+
+                        <a href="#roadmap" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                            Roadmap
+                        </a>
+
+                        <a href="#faqs" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                            FAQs
+                        </a>
+
+                    </nav>
+                    <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                        <a href="https://t.me/alienswap" target="_blank"
+                            class="telegram-click text-base font-medium text-blue-500 hover:text-blue-900">
+                            <span class="sr-only">Telegram</span>
+                            <svg class="h-10 w-10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M12 3C7.02985 3 3 7.02985 3 11.9904C3 16.9606 7.02985 21 12 21C16.9701 21 21 16.9606 21 11.9904C21 7.02985 16.9701 3 12 3ZM16.4328 8.65139C16.3753 9.48614 14.8305 15.7228 14.8305 15.7228C14.8305 15.7228 14.7345 16.0874 14.3987 16.097C14.2836 16.097 14.1301 16.0874 13.9574 15.9243C13.6023 15.6269 12.7964 15.0512 12.0384 14.5235C12.0096 14.5522 11.9808 14.581 11.9424 14.6098C11.7697 14.7633 11.5107 14.984 11.2324 15.2527C11.1269 15.3486 11.0117 15.4542 10.8966 15.5693L10.887 15.5789C10.8198 15.6461 10.7623 15.694 10.7143 15.7324C10.3401 16.0394 10.3017 15.7804 10.3017 15.6461L10.5032 13.4488V13.4296L10.5128 13.4104C10.5224 13.3817 10.5416 13.3721 10.5416 13.3721C10.5416 13.3721 14.4659 9.87953 14.5714 9.50533C14.581 9.48614 14.5522 9.46695 14.5043 9.48614C14.2452 9.57249 9.72601 12.4318 9.22708 12.7484C9.19829 12.7676 9.11194 12.758 9.11194 12.758L6.91471 12.0384C6.91471 12.0384 6.65565 11.9328 6.742 11.693C6.76119 11.645 6.78998 11.597 6.89552 11.5299C7.38486 11.1844 15.8955 8.12367 15.8955 8.12367C15.8955 8.12367 16.1354 8.04691 16.2793 8.09488C16.3465 8.12367 16.3849 8.15245 16.4232 8.2484C16.4328 8.28678 16.4424 8.36354 16.4424 8.44989C16.4424 8.49787 16.4328 8.55544 16.4328 8.65139Z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a href="https://alienswap.space" target="_blank"
+                            class="dex-click ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gradient-to-r from-pink-400 to-pink-400 hover:from-pink-500 hover:to-pink-500">
+                            Go to dApp
+                        </a>
+                    </div>
+                </div>
+
+                <div x-show="open" x-transition:enter="duration-200 ease-out"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="duration-100 ease-in" x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-95"
+                    x-description="Mobile menu, show/hide based on mobile menu state."
+                    class="absolute z-30 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
+                    x-ref="panel" @click.away="open = false" style="display: none;">
+
+                    <div
+                        class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+                        <div class="pt-5 pb-6 px-5">
+                            <div class="flex items-center justify-between">
+
+                                <div>
+                                    <img class="h-8 w-auto" src="img/logo.svg" alt="Alien Swap">
+                                </div>
+
+                                <div class="-mr-2">
+                                    <button type="button"
+                                        class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-pink-300"
+                                        @click="toggle">
+                                        <span class="sr-only">Close menu</span>
+                                        <svg class="h-6 w-6" x-description="Heroicon name: outline/x"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <nav class="grid grid-cols-1 gap-7">
+
+                                    <a href="#presale" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                                        <div class="text-base font-medium text-gray-900">
+                                            Presale
+                                        </div>
+                                    </a>
+
+                                    <a href="#roadmap" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                                        <div class="text-base font-medium text-gray-900">
+                                            Roadmap
+                                        </div>
+                                    </a>
+
+                                    <a href="#faqs" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                                        <div class="text-base font-medium text-gray-900">
+                                            FAQs
+                                        </div>
+                                    </a>
+
+                                    <a href="https://t.me/alienswap" target="_blank"
+                                        class="telegram-click -m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                                        <div class="text-base font-medium text-gray-900">
+                                            Telegram
+                                        </div>
+                                    </a>
+
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="py-6 px-5">
+                            <a href="https://alienswap.space/" target="_blank"
+                                class="dex-click w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gradient-to-r from-pink-400 to-pink-400 hover:from-pink-500 hover:to-pink-500">
+                                Go to dApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        <main>
+
+            <div class="relative">
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100"></div>
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
+                        <div class="absolute inset-0">
+                            <img class="h-full w-full object-cover" src="img/space.png" alt="People working on laptops"
+                                loading=lazy>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-pink-600 to-pink-500 mix-blend-multiply">
+                            </div>
+                        </div>
+                        <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+                            <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                                <span class="block text-white">Optimized yields across</span>
+                                <span class="block text-pink-100">the galaxy</span>
+                            </h1>
+                            <p class="mt-6 max-w-lg mx-auto text-center text-xl text-pink-100 sm:max-w-3xl">
+                                Alien Swap is a new decentralized exchange built to maximize yields on staked Low Marketcap Altcoins
+                                from planet to planet.
+                                <br>
+                                Access the DEX and start earning the highest APY % your coin is worth
+                            </p>
+                            <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
+                                <div class="space-y-4 sm:space-y-0 sm:mx-auto">
+                                    <a href="https://alienswap.space/" target="_blank"
+                                        class="dex-click flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-pink-500 bg-white hover:bg-pink-50 sm:px-8">
+                                        Go to dApp
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dex" class="relative pt-16 pb-32 overflow-hidden">
+                <div aria-hidden="true" class="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-gray-100"></div>
+                <div class="relative">
+                    <div
+                        class="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-24">
+                        <div class="px-4 max-w-xl mx-auto sm:px-6 lg:py-16 lg:max-w-none lg:mx-0 lg:px-0">
+                            <div>
+                                <div class="mt-6">
+                                    <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">
+                                        Forget the Moon, See the Galaxy
+                                    </h2>
+                                    <p class="mt-4 text-lg text-gray-500">
+                                        Be a part of a mission through the stars with Alien Swap, our growing token and
+                                        decentralized exchange.
+                                        Use the DEX to swap for Alien Swap and start taking advantage of the newest way
+                                        on the Binance Smart Chain to increase your ability to earn passive income with
+                                        cryptocurrency.
+                                        Click through to start swapping - and start earning.
+                                    </p>
+                                    <div class="mt-6">
+                                        <a href="https://dex.aswap.space/" target="_blank"
+                                            class="dex-click inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-pink-400 to-pink-400 hover:from-pink-500 hover:to-pink-500">
+                                            Start swapping soon
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-12 sm:mt-16 lg:mt-0">
+                            <div class="pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
+                                <img class="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
+                                    src="img/screenshot-1.png" alt="Inbox user interface" loading=lazy>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-24">
+                    <div
+                        class="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-24">
+                        <div
+                            class="px-4 max-w-xl mx-auto sm:px-6 lg:py-32 lg:max-w-none lg:mx-0 lg:px-0 lg:col-start-2">
+                            <div>
+                                <div class="mt-6">
+                                    <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">
+                                        Highest APYs on the BSC
+                                    </h2>
+                                    <p class="mt-4 text-lg text-gray-500">
+                                        Alien Swap offers you an ability to stake your shitcoins - low marketcap tokens
+                                        on the Binance Smart Chain - and earn incredible rewards.
+                                        By providing liquidity to your favorite tokens through Alien Swap, you reduce
+                                        volatility and get a hands-off way to get your money working for you.
+                                        Interested in learning more? See our pools.
+                                    </p>
+                                    <div class="mt-6">
+
+                                        <a href="https://farms.aswap.space/" target="_blank"
+                                            class="dex-click inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-pink-400 to-pink-400 hover:from-pink-500 hover:to-pink-500">
+                                            See pools
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-12 sm:mt-16 lg:mt-0 lg:col-start-1">
+                            <div class="pr-4 -ml-48 sm:pr-6 md:-ml-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
+                                <img class="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:right-0 lg:h-full lg:w-auto lg:max-w-none"
+                                    src="img/screenshot-2.png" alt="Alien Swap - DEX" loading=lazy>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="roadmap" class="py-16 lg:py-24 max-w-4xl mx-auto">
+
+                <div class="lg:text-center mb-8 lg:mb-12">
+                    <h2 class="text-base text-pink-400 font-semibold tracking-wide uppercase">Roadmap</h2>
+                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        Steady roadmap for big plans
+                    </p>
+                    <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                        Audits underway from these reputable businesses
+                        Audits ensure Alien Swap's security from hacks, bad actors, and exploits. Audits are not
+                        financial advice.
+                    </p>
+                </div>
+
+                <div class="flow-root">
+                    <ul class="-mb-8">
+                        <li>
+                            <div class="relative pb-8">
+                                <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+                                    aria-hidden="true"></span>
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                        <span
+                                            class="h-8 w-8 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white">
+                                            
+                                            <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Applied to <a href="#"
+                                                    class="font-medium text-gray-900">Front End Developer</a></p>
+                                        </div>
+                                        <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                            <time datetime="2020-09-20">Sep 20</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="relative pb-8">
+                                <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+                                    aria-hidden="true"></span>
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                        <span
+                                            class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
+                                            
+                                            <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path
+                                                    d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Advanced to phone screening by <a href="#"
+                                                    class="font-medium text-gray-900">Bethany Blake</a></p>
+                                        </div>
+                                        <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                            <time datetime="2020-09-22">Sep 22</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="relative pb-8">
+                                <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+                                    aria-hidden="true"></span>
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                        <span
+                                            class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white">
+                                            
+                                            <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd"
+                                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Completed phone screening with <a href="#"
+                                                    class="font-medium text-gray-900">Martha Gardner</a></p>
+                                        </div>
+                                        <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                            <time datetime="2020-09-28">Sep 28</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="relative pb-8">
+                                <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+                                    aria-hidden="true"></span>
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                        <span
+                                            class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
+                                            
+                                            <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path
+                                                    d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Advanced to interview by <a href="#"
+                                                    class="font-medium text-gray-900">Bethany Blake</a></p>
+                                        </div>
+                                        <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                            <time datetime="2020-09-30">Sep 30</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="relative pb-8">
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                        <span
+                                            class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white">
+                                            
+                                            <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd"
+                                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Completed interview with <a href="#"
+                                                    class="font-medium text-gray-900">Katherine Snyder</a></p>
+                                        </div>
+                                        <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                            <time datetime="2020-10-04">Oct 4</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-pink-600 to-pink-500">
+                <div class="max-w-7xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8 lg:py-20">
+                    <div class="max-w-4xl mx-auto text-center">
+                        <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                            Alien Swap is the safest in the Cosmos
+                        </h2>
+                        <p class="mt-3 text-xl text-pink-100 sm:mt-4">
+                            Our contract is "soft audited" by being forked from specifically safe and reputable contracts that already exist on the Binance Smart Chain. <br/>
+                            We intend to be entirely hack proof from any potential exploits and are preparing for audits on any future features for our decentralized exchange.<br/>
+                            Recent vulnerabilities such as flash loan attacks, or mint and dump protocols aren't possible with Alien Swap and we're putting in the work to ensure funds are safe.<br/>
+                            Alien Swap will be audited by the following reputable businesses:<br/>
+                        </p>
+                    </div>
+                    <dl class="mt-10 text-center sm:max-w-3xl sm:mx-auto sm:grid sm:grid-cols-3 sm:gap-8">
+                        <div class="flex flex-col">
+                            <dt class="order-2 mt-2 text-lg leading-6 font-medium text-pink-100">
+                                Techrate
+                            </dt>
+                            <dd class="order-1 text-5xl font-extrabold text-white">
+                                
+                            </dd>
+                        </div>
+                        <div class="flex flex-col mt-10 sm:mt-0">
+                            <dt class="order-2 mt-2 text-lg leading-6 font-medium text-pink-100">
+                                Hacken
+                            </dt>
+                            <dd class="order-1 text-5xl font-extrabold text-white">
+                                
+                            </dd>
+                        </div>
+                        <div class="flex flex-col mt-10 sm:mt-0">
+                            <dt class="order-2 mt-2 text-lg leading-6 font-medium text-pink-100">
+                                Certik
+                            </dt>
+                            <dd class="order-1 text-5xl font-extrabold text-white">
+                                
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="bg-white">
+                <div class="relative pb-32 bg-gray-800">
+                    <div class="absolute inset-0">
+                        <img class="w-full h-full object-cover"
+                            src="img/space.png" alt="Alien Swap - Farm"
+                            loading=lazy>
+                        <div class="absolute inset-0 bg-gray-800 mix-blend-multiply" aria-hidden="true"></div>
+                    </div>
+                    <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+                        <h1 class="text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
+                            What is Staking?
+                        </h1>
+                        <p class="mt-6 max-w-3xl text-xl text-gray-300">
+                            Learn what staking is, how to do it with Alien Swap, and what you can expect.
+                        </p>
+                    </div>
+                </div>
+
+                <section class="-mt-32 max-w-7xl mx-auto relative z-10 pb-32 px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 gap-y-20 lg:grid-cols-3 lg:gap-y-0 lg:gap-x-8">
+                        <div class="flex flex-col bg-white rounded-2xl shadow-xl">
+                            <div class="flex-1 relative pt-16 px-6 pb-8 md:px-8">
+                                <div
+                                    class="absolute top-0 p-5 inline-block bg-pink-400 rounded-xl shadow-lg transform -translate-y-1/2">
+                                    <span class="px-2 text-3xl text-white">
+                                        1
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-medium text-gray-900">Deposit</h3>
+                                <p class="mt-4 text-base text-gray-500">
+                                    Staking begins by depositing your tokens into a pool.
+                                    When you deposit, they are moved from your wallet and safely stored in a "vault."
+                                    This is boiled down to providing liquidity to receive rewards.
+                                    If you stake, you are lending a single asset. Through farming, you're creating
+                                    liquidity tokens with equal amounts of BNB and Token.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col bg-white rounded-2xl shadow-xl">
+                            <div class="flex-1 relative pt-16 px-6 pb-8 md:px-8">
+                                <div
+                                    class="absolute top-0 p-5 inline-block bg-pink-400 rounded-xl shadow-lg transform -translate-y-1/2">
+
+                                    <span class="px-2 text-3xl text-white">
+                                        2
+                                    </span>
+                                    
+                                </div>
+                                <h3 class="text-xl font-medium text-gray-900">Earn, Harvest and Compound</h3>
+                                <p class="mt-4 text-base text-gray-500">
+                                    As long as your tokens remain in the vault, you will earn assets that can be claimed
+                                    through "harvesting."
+                                    The rewards are then sent to your wallet, and you can then use them, sell them, or
+                                    "compound" them.
+                                    Compounding them by re-entering them into the pool allows you to have more overall
+                                    tokens that will be earning money for you.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col bg-white rounded-2xl shadow-xl">
+                            <div class="flex-1 relative pt-16 px-6 pb-8 md:px-8">
+                                <div
+                                    class="absolute top-0 p-5 inline-block bg-pink-400 rounded-xl shadow-lg transform -translate-y-1/2">
+                                    <span class="px-2 text-3xl text-white">
+                                        3
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-medium text-gray-900">Exit and Withdraw</h3>
+                                <p class="mt-4 text-base text-gray-500">
+                                    You can exit your pools at any time and do anything with your tokens and rewards.
+                                    This ends your ability to continue earning an APY% in the pool, but enables you to
+                                    explore OTHER pools, or make use of your tokens.
+                                    If you don't want to exit, you can simply just withdraw the rewards while leaving
+                                    your staked tokens to continue earning.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="faqs" class="bg-white">
+                <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+                    <div class="max-w-2xl lg:mx-auto lg:text-center">
+                        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                            Frequently asked questions
+                        </h2>
+                        <p class="mt-4 text-gray-500">Ac euismod vel sit maecenas id pellentesque eu sed consectetur.
+                            Malesuada adipiscing sagittis vel nulla nec. Urna, sed a lectus elementum blandit et.</p>
+                    </div>
+                    <div class="mt-20">
+                        <dl class="space-y-10 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:gap-y-10">
+                            <div>
+                                <dt class="font-semibold text-gray-900">
+                                    What&#039;s the best thing about Switzerland?
+                                </dt>
+                                <dd class="mt-3 text-gray-500">
+                                    I don&#039;t know, but the flag is a big plus. Lorem ipsum dolor sit amet
+                                    consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-gray-900">
+                                    What&#039;s the best thing about Switzerland?
+                                </dt>
+                                <dd class="mt-3 text-gray-500">
+                                    I don&#039;t know, but the flag is a big plus. Lorem ipsum dolor sit amet
+                                    consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-gray-900">
+                                    What&#039;s the best thing about Switzerland?
+                                </dt>
+                                <dd class="mt-3 text-gray-500">
+                                    I don&#039;t know, but the flag is a big plus. Lorem ipsum dolor sit amet
+                                    consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-gray-900">
+                                    What&#039;s the best thing about Switzerland?
+                                </dt>
+                                <dd class="mt-3 text-gray-500">
+                                    I don&#039;t know, but the flag is a big plus. Lorem ipsum dolor sit amet
+                                    consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-gray-900">
+                                    What&#039;s the best thing about Switzerland?
+                                </dt>
+                                <dd class="mt-3 text-gray-500">
+                                    I don&#039;t know, but the flag is a big plus. Lorem ipsum dolor sit amet
+                                    consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-gray-900">
+                                    What&#039;s the best thing about Switzerland?
+                                </dt>
+                                <dd class="mt-3 text-gray-500">
+                                    I don&#039;t know, but the flag is a big plus. Lorem ipsum dolor sit amet
+                                    consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="bg-gray-50" aria-labelledby="footerHeading">
+            <h2 id="footerHeading" class="sr-only">Footer</h2>
+            <div class="max-w-7xl mx-auto pb-8 px-4 sm:px-6 lg:px-8">
+                <div class="mt-12 pt-8 md:flex md:items-center md:justify-between lg:mt-16">
+                    <div class="flex space-x-6 md:order-2">
+
+                        <a href="https://t.me/alienswap" target="_blank"
+                            class="telegram-click text-gray-400 hover:text-gray-500">
+                            <span class="sr-only">Telegram</span>
+                            <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M12 3C7.02985 3 3 7.02985 3 11.9904C3 16.9606 7.02985 21 12 21C16.9701 21 21 16.9606 21 11.9904C21 7.02985 16.9701 3 12 3ZM16.4328 8.65139C16.3753 9.48614 14.8305 15.7228 14.8305 15.7228C14.8305 15.7228 14.7345 16.0874 14.3987 16.097C14.2836 16.097 14.1301 16.0874 13.9574 15.9243C13.6023 15.6269 12.7964 15.0512 12.0384 14.5235C12.0096 14.5522 11.9808 14.581 11.9424 14.6098C11.7697 14.7633 11.5107 14.984 11.2324 15.2527C11.1269 15.3486 11.0117 15.4542 10.8966 15.5693L10.887 15.5789C10.8198 15.6461 10.7623 15.694 10.7143 15.7324C10.3401 16.0394 10.3017 15.7804 10.3017 15.6461L10.5032 13.4488V13.4296L10.5128 13.4104C10.5224 13.3817 10.5416 13.3721 10.5416 13.3721C10.5416 13.3721 14.4659 9.87953 14.5714 9.50533C14.581 9.48614 14.5522 9.46695 14.5043 9.48614C14.2452 9.57249 9.72601 12.4318 9.22708 12.7484C9.19829 12.7676 9.11194 12.758 9.11194 12.758L6.91471 12.0384C6.91471 12.0384 6.65565 11.9328 6.742 11.693C6.76119 11.645 6.78998 11.597 6.89552 11.5299C7.38486 11.1844 15.8955 8.12367 15.8955 8.12367C15.8955 8.12367 16.1354 8.04691 16.2793 8.09488C16.3465 8.12367 16.3849 8.15245 16.4232 8.2484C16.4328 8.28678 16.4424 8.36354 16.4424 8.44989C16.4424 8.49787 16.4328 8.55544 16.4328 8.65139Z">
+                                </path>
+                            </svg>
+                        </a>
+
+                    </div>
+                    <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+                        © 2021 Alien Swap, Inc. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <script>
+
+        Array.from(
+            document.getElementsByClassName('dex-click')
+        ).forEach(function (element) {
+            element.addEventListener('click', function () {
+                gtag('event', 'click', {
+                    'event_category': 'button',
+                    'event_label': 'dex'
+                });
+            });
+        });
+
+        Array.from(
+            document.getElementsByClassName('telegram-click')
+        ).forEach(function (element) {
+            element.addEventListener('click', function () {
+                gtag('event', 'click', {
+                    'event_category': 'button',
+                    'event_label': 'telegram'
+                });
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
